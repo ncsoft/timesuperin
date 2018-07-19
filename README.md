@@ -1,41 +1,41 @@
 # Timesuperin
 
-Timesuperin Àº '**Time Superin**tendent (½Ã°£ °ü¸®ÀÚ)'ÀÇ ÁÙÀÓ¸»·Î½á ½Ã°è¿­ µ¥ÀÌÅÍ ºÐ¼® ¹× ÀÌ»ó Å½Áö¸¦ À§ÇÑ ¶óÀÌºê·¯¸®ÀÔ´Ï´Ù.
-½Ã°è¿­ ÁöÇ¥¸¦ ÀÌº¥Æ® Á¤º¸¿Í Æ®·»µå¸¦ °í·ÁÇÏ¿© È¸±Í ¸ðµ¨À» »ý¼ºÇÏ¿© ÇâÈÄ ÁöÇ¥ÀÇ º¯È­¸¦ ÃßÁ¤ÇÏ°í, ÀÌ·¸°Ô ÃßÁ¤µÈ °á°ú¿Í Å©°Ô Â÷ÀÌ°¡ ¹ß»ýÇÏ´Â ÀÌ»ó Çö»óÀ» Å½ÁöÇÏ´Â ±â´ÉÀ» Á¦°øÇÕ´Ï´Ù. 
+Timesuperin ì€ '**Time Superin**tendent (ì‹œê°„ ê´€ë¦¬ìž)'ì˜ ì¤„ìž„ë§ë¡œì¨ ì‹œê³„ì—´ ë°ì´í„° ë¶„ì„ ë° ì´ìƒ íƒì§€ë¥¼ ìœ„í•œ ë¼ì´ë¸ŒëŸ¬ë¦¬ìž…ë‹ˆë‹¤.
+ì‹œê³„ì—´ ì§€í‘œë¥¼ ì´ë²¤íŠ¸ ì •ë³´ì™€ íŠ¸ë Œë“œë¥¼ ê³ ë ¤í•˜ì—¬ íšŒê·€ ëª¨ë¸ì„ ìƒì„±í•˜ì—¬ í–¥í›„ ì§€í‘œì˜ ë³€í™”ë¥¼ ì¶”ì •í•˜ê³ , ì´ë ‡ê²Œ ì¶”ì •ëœ ê²°ê³¼ì™€ í¬ê²Œ ì°¨ì´ê°€ ë°œìƒí•˜ëŠ” ì´ìƒ í˜„ìƒì„ íƒì§€í•˜ëŠ” ê¸°ëŠ¥ì„ ì œê³µí•©ë‹ˆë‹¤. 
 
-## ¼³Ä¡ ¹æ¹ý
-timesuperinÀ» »ç¿ëÇÏ±â À§ÇØ¼± ¸ÕÀú ¾Æ·¡ ¶óÀÌºê·¯¸®¸¦ ¼³Ä¡ÇØ¾ß ÇÕ´Ï´Ù.
+## ì„¤ì¹˜ ë°©ë²•
+timesuperinì„ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„  ë¨¼ì € ì•„ëž˜ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì„¤ì¹˜í•´ì•¼ í•©ë‹ˆë‹¤.
 * Rcpp
 * rstan
 * BH
 
-À§ ¶óÀÌºê·¯¸®°¡ ¼³Ä¡µÈ »óÅÂ¿¡¼­ ¾Æ·¡ ÄÚµå¸¦ ½ÇÇàÇÏ½Ã¸é µË´Ï´Ù.
+ìœ„ ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì„¤ì¹˜ëœ ìƒíƒœì—ì„œ ì•„ëž˜ ì½”ë“œë¥¼ ì‹¤í–‰í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
 
     devtools::install_github("ncsoft/timesuperin")
 
-## »ç¿ë ¹æ¹ý
-¸ðµ¨¸µ ¹× ½Ã°è¿­ ÀÌ»ó Å½Áö ¹æ¹ýÀº ¾Æ·¡¿Í °°½À´Ï´Ù. 
-¸ÕÀú timesuperin/resources ¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ ºÒ·¯¿É´Ï´Ù.
+## ì‚¬ìš© ë°©ë²•
+ëª¨ë¸ë§ ë° ì‹œê³„ì—´ ì´ìƒ íƒì§€ ë°©ë²•ì€ ì•„ëž˜ì™€ ê°™ìŠµë‹ˆë‹¤. 
+ë¨¼ì € timesuperin/resources ì— ìžˆëŠ” ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜µë‹ˆë‹¤.
 
 	setwd('./timesuperin/resources')
 	train_data <- read.csv('./train_data.csv')
 	test_data <- read.csv('./test_data.csv')
 
-train_data.csv ¿Í test_data.csv ´Â µÎ °³ÀÇ ÀÌº¥Æ® º¯¼ö¿¡ ¿µÇâÀ» ¹Þ´Â ½Ã°è¿­ µ¥ÀÌÅÍÀÔ´Ï´Ù.
-¸ðµ¨¸µ¿¡ »ç¿ëÇÒ ÇÐ½À µ¥ÀÌÅÍ´Â ¾Æ·¡ ±×¸²°ú °°½À´Ï´Ù. 
+train_data.csv ì™€ test_data.csv ëŠ” ë‘ ê°œì˜ ì´ë²¤íŠ¸ ë³€ìˆ˜ì— ì˜í–¥ì„ ë°›ëŠ” ì‹œê³„ì—´ ë°ì´í„°ìž…ë‹ˆë‹¤.
+ëª¨ë¸ë§ì— ì‚¬ìš©í•  í•™ìŠµ ë°ì´í„°ëŠ” ì•„ëž˜ ê·¸ë¦¼ê³¼ ê°™ìŠµë‹ˆë‹¤. 
 
-![](https://raw.githubusercontent.com/danbi-ncsoft/timesuperin/master/resources/train_data.png)
+![](https://raw.githubusercontent.com/ncsoft/timesuperin/master/resources/train_data.png)
 
-ÀÌÁ¦ À§ µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇØ ¾Æ·¡¿Í °°ÀÌ ½Ã°è¿­ ¸ðµ¨À» »ý¼ºÇÕ´Ï´Ù.
+ì´ì œ ìœ„ ë°ì´í„°ë¥¼ ì´ìš©í•´ ì•„ëž˜ì™€ ê°™ì´ ì‹œê³„ì—´ ëª¨ë¸ì„ ìƒì„±í•©ë‹ˆë‹¤.
 
 	model <- model.timesuperin(train_data, model.type = 'lm', period = 6)
 
-À§ ¸ðµ¨À» ÀÌ¿ëÇØ Å×½ºÆ® µ¥ÀÌÅÍ¿¡ ÀÖ´Â ÀÌ»ó µ¥ÀÌÅÍ¸¦ Å½ÁöÇÏ±â À§ÇØ ¾Æ·¡¿Í °°ÀÌ detect_anomal.timesuperin ÇÔ¼ö¸¦ ½ÇÇàÇÕ´Ï´Ù.
+ìœ„ ëª¨ë¸ì„ ì´ìš©í•´ í…ŒìŠ¤íŠ¸ ë°ì´í„°ì— ìžˆëŠ” ì´ìƒ ë°ì´í„°ë¥¼ íƒì§€í•˜ê¸° ìœ„í•´ ì•„ëž˜ì™€ ê°™ì´ detect_anomal.timesuperin í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•©ë‹ˆë‹¤.
 
 	anomaly.detect <- detect_anomal.timesuperin(model, test_data, value = test_data$value)
 
-ÀÌ»ó Å½Áö °á°ú´Â ´ÙÀ½°ú °°ÀÌ È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù (µÎ °³ÀÇ µ¥ÀÌÅÍ°¡ upr°ú lwr ¹üÀ§¸¦ ¹þ¾î³­ °ÍÀ» È®ÀÎÇÒ ¼ö ÀÖ½À´Ï´Ù).
+ì´ìƒ íƒì§€ ê²°ê³¼ëŠ” ë‹¤ìŒê³¼ ê°™ì´ í™•ì¸í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤ (ë‘ ê°œì˜ ë°ì´í„°ê°€ uprê³¼ lwr ë²”ìœ„ë¥¼ ë²—ì–´ë‚œ ê²ƒì„ í™•ì¸í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤).
 
 	result$Interval_Plot
 
-![](https://raw.githubusercontent.com/danbi-ncsoft/timesuperin/master/resources/anomaly_detect.png)
+![](https://raw.githubusercontent.com/ncsoft/timesuperin/master/resources/anomaly_detect.png)
