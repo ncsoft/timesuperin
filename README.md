@@ -8,12 +8,29 @@ timesuperin을 사용하기 위해선 먼저 아래 라이브러리를 설치해
 * Rcpp
 * rstan
 * BH
+* stringi
 
 위 라이브러리가 설치된 상태에서 아래 코드를 실행하시면 됩니다.
 
     devtools::install_github("ncsoft/timesuperin")
 
+
+
+R 3.5.0 이상 버전 사용 시, devtools가 3.4 버전까지 지원되어 패키지 설치가 제대로 안 될 수 있습니다. 이 경우 아래와 같이 devtools 버전에 3.5를 임의로 추가 후, 패키지 설치를 진행하면 됩니다.
+
+```R
+library(devtools)
+find_rtools() # R 3.5.0과 호환되는 Rtools버전이 발견되지 않는다고 에러 메시지가 뜨는 경우, 아래 코드 실행
+assignInNamespace("version_info", 
+                 c(devtools:::version_info,
+                  list("3.5" = list(version_min = "3.3.0", version_max = "99.99.99", path = "bin"))), "devtools")
+find_rtools() # TRUE가 나오면 다시 위의 패키지 설치 코드 실행
+```
+
+
+
 ## 사용 방법
+
 모델링 및 시계열 이상 탐지 방법은 아래와 같습니다. 
 먼저 timesuperin/resources 에 있는 데이터를 불러옵니다.
 
