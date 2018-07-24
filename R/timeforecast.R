@@ -3,8 +3,9 @@
 #' timesuperin is used to fit timeseries models.
 #' @param data Dataframe containing the history. Must have columns date type and y.
 #' @param model.type String 'lm' or 'rlm' to specify a linear or robust limear model
-#' @param step.fun Fit feature selection : TRUE, FALSE
+#' @param use.timevalue Specify whether to use time variables : TRUE, FALSE
 #' @param period Data period
+#' @param step.wise Fit feature selection : TRUE, FALSE
 #' @param changepoints	Vector of dates at which to include potential changepoints. If not specified, potential changepoints are selected automatically.
 #' @param changepoint.prior.scale Parameter modulating the flexibility of the automatic changepoint selection. Large values will allow many changepoints, small values will allow few changepoints.
 #' @keywords timesuperin

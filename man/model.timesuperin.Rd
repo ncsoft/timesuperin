@@ -4,23 +4,26 @@
 \alias{model.timesuperin}
 \title{Fitting timeseries models}
 \usage{
-model.timesuperin(data, model.type = "lm", formula = NULL, step.fun = F,
-  period = 24, changepoints = NULL, changepoint.prior.scale = 0.05)
+model.timesuperin(data, model.type = "lm", formula = NULL,
+  use.timevalue = TRUE, period = 24, step.wise = FALSE,
+  changepoints = NULL, changepoint.prior.scale = 0.05)
 }
 \arguments{
 \item{data}{Dataframe containing the history. Must have columns date type and y.}
 
 \item{model.type}{String 'lm' or 'rlm' to specify a linear or robust limear model}
 
-\item{step.fun}{Fit feature selection : TRUE, FALSE}
+\item{use.timevalue}{Specify whether to use time variables : TRUE, FALSE}
 
 \item{period}{Data period}
+
+\item{step.wise}{Fit feature selection : TRUE, FALSE}
 
 \item{changepoints}{Vector of dates at which to include potential changepoints. If not specified, potential changepoints are selected automatically.}
 
 \item{changepoint.prior.scale}{Parameter modulating the flexibility of the automatic changepoint selection. Large values will allow many changepoints, small values will allow few changepoints.}
 }
 \description{
-model.timesuperin is used to fit timeseries models.
+timesuperin is used to fit timeseries models.
 }
 \keyword{timesuperin}
