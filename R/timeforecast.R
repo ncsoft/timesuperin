@@ -35,7 +35,11 @@ model.timesuperin <- function(data, model.type = 'lm',
   }
     
   if (!is.null(formula)) {
-    formula.timesuperin = as.formula(paste(formula[[2]], "~", formula[3], "+ time_value", "+ trend_value"))
+    if (use.timevalue == TRUE) {
+      formula.timesuperin = as.formula(paste(formula[[2]], "~", formula[3], "+ time_value", "+ trend_value"))
+    } else {
+      formula.timesuperin = as.formula(paste(formula[[2]], "~", formula[3], "+ trend_value"))
+    }
   } else {
     formula.timesuperin = as.formula(paste(names(data)[2], "~."))
   }
@@ -98,7 +102,7 @@ format_time <- function(data) {
     data <- as.POSIXct(strptime(data, format="%Y%m%d %H", tz="UTC"))
   }
   else if (stringr::str_detect(data[1], "^\\d{4}-\\d{2}-\\d{2}$")) {
-    data <- as.Date(data, "%Y-%m-%d")
+    data <- as.POSIXct(strptime(data, format="%Y-%m-%d", tz="UTC"))
   }
   else if (stringr::str_detect(data[1], "^\\d{2}/\\d{2}/\\d{2}$")) {
     data <- as.POSIXct(strptime(data, format="%m/%d/%y", tz="UTC"))
@@ -107,16 +111,16 @@ format_time <- function(data) {
     data <- as.POSIXct(strptime(data, format="%m/%d/%Y", tz="UTC"))
   }
   else if (stringr::str_detect(data[1], "^\\d{4}\\d{2}\\d{2}$")) {
-    data <- as.Date(data, "%Y%m%d")
+    data <- aS.POSIXct(strptime(data, format="%Y%m%d", tz="UTC"))
   }
   else if (stringr::str_detect(data[1], "^\\d{4}/\\d{2}/\\d{2}/\\d{2}$")) {
     data <- as.POSIXct(strptime(data, format="%Y/%m/%d/%H", tz="UTC"))
   }
   else if( stringr::str_detect(data[1],"^\\d{4}-\\d{2}$")){
-    data <- as.Date(paste0((data),"-01"),"%Y-%m-%d")
+    data <- as.POSIXct(strptime(paste0(data, "-01"), format="%Y-%m-%d", tz="UTC"))
   }
   else if( stringr::str_detect(data[1],"^\\d{4}/\\d{2}$")){
-    data <- as.Date(paste0((data),"/01"),"%Y/%m/%d")
+    data <- as.POSIXct(strptime(paste0(data, "/01"), format="%Y/%m/%d", tz="UTC"))
   }
 
   return(data)
@@ -408,12 +412,11 @@ fourier_series <- function(data,
                            series.order) {
   gran <- get_gran(data)
   if (gran == 'day') {
-    t <- data[['time']] - zoo::as.Date('1970-01-01')
-
+    t <- as.numeric(difftime(data[['time']],
+                             as.POSIXct(strptime('1970-01-01', format = '%Y-%m-%d', tz="UTC"), units=c('days'))))
   } else if (gran == 'hr') {
     t <- as.numeric(difftime(data[['time']], 
-                             as.POSIXct(strptime('1970-01-01 00', format = "%Y-%m-%d %H", tz = "UTC"), 
-                                        units = c('days'))))
+                             as.POSIXct(strptime('1970-01-01 00', format = "%Y-%m-%d %H", tz = "UTC"), units = c('days'))))
   }
   features <- matrix(0, length(t), 2 * series.order)
   for (i in 1:series.order) {
@@ -512,20 +515,16 @@ setup_dataframe <- function(m, data, run.ex = FALSE) {
 set_changepoints <- function(m) {
   gran <- get_gran(m$history)
   if (!is.null(m$changepoints)) {
+    temp <- format_time(m$changepoints)
+    
     if (length(m$changepoints) > 0) {
-      if (min(m$changepoints) < min(m$history[['time']])
-          || max(m$changepoints) > max(m$history[['time']])) {
+      if (min(temp) < min(m$history[['time']])
+          || max(temp) > max(m$history[['time']])) {
         stop('Changepoints must fall within training data.')
       }
     }
-    temp <- format_time(m$changepoints)
-    if (gran == 'day'){
-      m$changepoints <- m$history$time[m$history$time >= zoo::as.Date(m$changepoints)]
-      m$changepoints.t <- sort(as.numeric(m$changepoints - m$start) / m$t.scale)
-    } else {
-      m$changepoints <- m$history$time[m$history$time >= temp]
-      m$changepoints.t <- sort(as.numeric(difftime(m$changepoints, m$start, units = c('days')) / m$t.scale))
-    }
+    m$changepoints <- m$history$time[m$history$time >= temp]
+    m$changepoints.t <- sort(as.numeric(difftime(m$changepoints, m$start, units = c('days')) / m$t.scale))
   } else {
     if (m$n.changepoints > 0) {
       # Place potential changepoints evenly through the first 80 pcnt of
@@ -536,15 +535,8 @@ set_changepoints <- function(m) {
                           )[-1]
       m$changepoints <- m$history[['time']][cp.indexes]
 
-      if (gran == 'day') {
-        if (length(m$changepoints) > 0) {
-          m$changepoints <- zoo::as.Date(m$changepoints)
-          m$changepoints.t <- sort(as.numeric(m$changepoints - m$start) / m$t.scale)
-        }
-      } else {
-        m$changepoints <- format_time(m$changepoints)
-        m$changepoints.t <- sort(as.numeric(difftime(m$changepoints, m$start, units = c('days')) / m$t.scale))
-      } 
+      m$changepoints <- format_time(m$changepoints)
+      m$changepoints.t <- sort(as.numeric(difftime(m$changepoints, m$start, units=c('days')) / m$t.scale))
     } else {
       m$changepoints <- c()
     }
