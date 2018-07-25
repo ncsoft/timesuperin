@@ -12,7 +12,9 @@ timesuperin을 사용하기 위해선 먼저 아래 라이브러리를 설치해
 
 위 라이브러리가 설치된 상태에서 아래 코드를 실행하시면 됩니다.
 
-    devtools::install_github("ncsoft/timesuperin")
+```R
+devtools::install_github("ncsoft/timesuperin")
+```
 
 
 
@@ -34,9 +36,11 @@ find_rtools() # TRUE가 나오면 다시 위의 패키지 설치 코드 실행
 모델링 및 시계열 이상 탐지 방법은 아래와 같습니다. 
 먼저 timesuperin/resources 에 있는 데이터를 불러옵니다.
 
-	setwd('./timesuperin/resources')
-	train_data <- read.csv('./train_data.csv')
-	test_data <- read.csv('./test_data.csv')
+```R
+setwd('./timesuperin/resources')
+train_data <- read.csv('./train_data.csv')
+test_data <- read.csv('./test_data.csv')
+```
 
 train_data.csv 와 test_data.csv 는 두 개의 이벤트 변수에 영향을 받는 시계열 데이터입니다.
 모델링에 사용할 학습 데이터는 아래 그림과 같습니다. 
@@ -45,14 +49,20 @@ train_data.csv 와 test_data.csv 는 두 개의 이벤트 변수에 영향을 �
 
 이제 위 데이터를 이용해 아래와 같이 시계열 모델을 생성합니다.
 
-	model <- model.timesuperin(train_data, model.type = 'lm', period = 6)
+```R
+model <- model.timesuperin(train_data, model.type = 'lm', period = 6)
+```
 
 위 모델을 이용해 테스트 데이터에 있는 이상 데이터를 탐지하기 위해 아래와 같이 detect_anomal.timesuperin 함수를 실행합니다.
 
-	anomaly.detect <- detect_anomal.timesuperin(model, test_data, value = test_data$value)
+```R
+anomaly.detect <- detect_anormal.timesuperin(model, test_data, value = test_data$value)
+```
 
 이상 탐지 결과는 다음과 같이 확인할 수 있습니다 (두 개의 데이터가 upr과 lwr 범위를 벗어난 것을 확인할 수 있습니다).
 
-	result$Interval_Plot
+```R
+anomaly.detect$Interval_Plot
+```
 
 ![](https://raw.githubusercontent.com/ncsoft/timesuperin/master/resources/anomaly_detect.png)
