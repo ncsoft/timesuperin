@@ -34,8 +34,9 @@ In this example, we use a sample data in the package. Load train and test data i
 ```{r}
 train_data <- read.csv('./train_data.csv')
 test_data <- read.csv('./test_data.csv')
+```
 
-Two sets are time-series data affected by two event variables. Let's plot training data. 
+Two datasets are time-series data affected by two event variables. Let's plot training data. 
 
 ![](https://raw.githubusercontent.com/ncsoft/timesuperin/master/resources/train_data.png)
 
