@@ -13,6 +13,8 @@ model.timesuperin(data, model.type = "lm", formula = NULL,
 
 \item{model.type}{String 'lm' or 'rlm' to specify a linear or robust limear model}
 
+\item{formula}{Specify the formula for the model. If NULL, timesuperin will automatically specify the formula based on the input data.}
+
 \item{use.timevalue}{Specify whether to use time variables : TRUE, FALSE}
 
 \item{period}{Data period}

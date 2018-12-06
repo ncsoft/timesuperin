@@ -3,6 +3,7 @@
 #' timesuperin is used to fit timeseries models.
 #' @param data Dataframe containing the history. Must have columns date type and y.
 #' @param model.type String 'lm' or 'rlm' to specify a linear or robust limear model
+#' @param formula Specify the formula for the model. If NULL, timesuperin will automatically specify the formula based on the input data.
 #' @param use.timevalue Specify whether to use time variables : TRUE, FALSE
 #' @param period Data period
 #' @param step.wise Fit feature selection : TRUE, FALSE
@@ -12,7 +13,11 @@
 #' @export
 
 #' @importFrom MASS rlm
+#' @importFrom scales comma
 #' @import Rcpp
+#' @import prophet
+#' @import dplyr
+#' @import ggplot2
 model.timesuperin <- function(data, model.type = 'lm',
                               formula = NULL, 
                               use.timevalue = TRUE,
@@ -186,7 +191,6 @@ timevalue <- function(data){
 # period: 데이터의 주기
 # changepoints: 데이터의 특성 변경점 , 데이터의 시간단위와 일치
 # changepoint.prior.scale: 변경점 선택의 유연성을 조정하는 변수, 큰값은 많은수를 작은값은 적은수의 변경점 허용
-#' @importFrom dplyr arrange
 data.preprocessing <- function(data, 
                                value = NULL, 
                                period = NULL, 
@@ -334,10 +338,9 @@ detect_anormal.timesuperin <- function(object,
   predic.table$value <- value
   #names(predic.table)[ncol(predic.table)]<-c('value')
 
-  #' @import ggplot2
-  #' @importFrom reshape melt
+  #' @importFrom reshape2 melt
   #하한,상한, 예측값, 실제값 plot
-  predic.table.melt<-reshape::melt(predic.table[,c('time', 'value', 'fit', 'upr', 'lwr')], id.vars = 'time')
+  predic.table.melt<-reshape2::melt(predic.table[,c('time', 'value', 'fit', 'upr', 'lwr')], id.vars = 'time')
   plot.ex <- ggplot2::ggplot(predic.table.melt, ggplot2::aes(time,value,group=variable,col=variable)) +
     ggplot2::geom_point() + 
     ggplot2::geom_line() +
@@ -364,7 +367,7 @@ detect_anormal.timesuperin <- function(object,
     predic.table$cumul_lwr <- 0 - qnorm(1 - (1 - level) / 8) * sd(predic.table$cumulative_sum_of_residual)
   }
 
-  predic.table.melt <- reshape::melt(predic.table[, c('time','cumulative_sum_of_residual', 'cumul_upr','cumul_lwr')],
+  predic.table.melt <- reshape2::melt(predic.table[, c('time','cumulative_sum_of_residual', 'cumul_upr','cumul_lwr')],
                                      id.vars = 'time')
   plot.resid.ex <- ggplot2::ggplot(predic.table.melt, ggplot2::aes(time, value, group = variable, col = variable)) +
     ggplot2::geom_point() + 
